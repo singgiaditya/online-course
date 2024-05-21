@@ -7,14 +7,14 @@ class Router {
     private const METHOD_POST = 'POST';
     private const METHOD_GET = 'GET';
 
-    public function get(string $path, $handler) : void 
+    public function get(string $path, $handler, array $middlewares = []) : void 
     {
-        $this->addHandler(self::METHOD_GET, $path, $handler);
+        $this->addHandler(self::METHOD_GET, $path, $handler, $middlewares);
     }
 
-    public function post(string $path, $handler) : void 
+    public function post(string $path, $handler, array $middlewares = []) : void 
     {
-        $this->addHandler(self::METHOD_POST, $path, $handler);
+        $this->addHandler(self::METHOD_POST, $path, $handler, $middlewares);
     }
 
     public function notFoundHandler($handler) : void
@@ -22,27 +22,30 @@ class Router {
         $this->notFoundHandler = $handler;
     }
 
-    private function addHandler(string $method, string $path, $handler) : void 
+    private function addHandler(string $method, string $path, $handler, array $middlewares) : void 
     {
         $this->handlers[] = [
             'path' => $path,
             'method' => $method,
-            'handler' => $handler
+            'handler' => $handler,
+            'middlewares' => $middlewares
         ];
     }
 
     public function run() {
         $requestUri = parse_url($_SERVER['REQUEST_URI']);
         $requestPath = $requestUri['path'];
-        $requestPath = substr($requestPath, 13);
+        $requestPath = substr($requestPath, 13); // Adjust as necessary for your base path
         $method = $_SERVER['REQUEST_METHOD'];
 
         $callback = null;
         $params = [];
+        $middlewares = [];
 
         foreach ($this->handlers as $handler) {
             if ($method === $handler['method'] && $this->match($handler['path'], $requestPath, $params)) {
                 $callback = $handler['handler'];
+                $middlewares = $handler['middlewares'];
                 break;
             }
         }
@@ -57,6 +60,13 @@ class Router {
                 return;
             }
             $callback = $this->notFoundHandler;
+        }
+
+        // Run middlewares specific to this route
+        foreach ($middlewares as $middleware) {
+            if (!$middleware->handle($params)) {
+                return; // Stop execution if middleware returns false
+            }
         }
 
         call_user_func_array($callback, [$params]);

@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Controllers;
+use Controller;
 
-class HomeController{
+class HomeController extends Controller{
     public function index(){
-        echo "home";
+        $this->view('Home');
+    }
+
+    public function create($request){
+        $this->view('Test', $request);
     }
 }
