@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Controllers;
+use Controller;
+
+require_once("app/models/UserModel.php");
+
+use App\Models\UserModel;
+
+
+
+class AuthController extends Controller{
+    public function loginView(){
+        $this->view('auth/Login');
+    }
+
+    public function registerView(){
+        $this->view('auth/Register');
+    }
+
+    public function login()
+    {
+     $email = $_POST['email'];
+     $password = $_POST['password'];
+
+     $userModels = new UserModel();
+
+     $user = $userModels->login($email, $password);
+
+     if($user)
+     {
+        $_SESSION['user'] = $user;
+
+        if($user['role'] == 'user')
+        {
+            header("location: ./");
+        }
+        else if($user['role'] == 'admin'){
+            header("location: dashboard");
+        }else
+        {
+            header("location: ./login");
+        }
+     }else
+     {
+        header("location:  ./login");
+     }
+
+    }
+    
+    public function register() 
+    {
+        $email = $_POST['email'];        
+        $name = $_POST['name'];        
+        $password = $_POST['password'];        
+        $telephone = $_POST['telephone'];
+        
+        $userModels = new UserModel();
+
+        if ($userModels->register($email, $name, $password, $telephone)) {
+            header('location: ./login?message=success');
+        }
+
+        header('location: ./login?message=fail');
+
+    }
+}
