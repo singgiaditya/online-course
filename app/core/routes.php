@@ -13,7 +13,12 @@ use App\Controllers\AuthController;
 
 $router = new Router();
 $router->get('/', [HomeController::class, 'index']);
-$router->get('/admin', [AdminController::class, 'index']);
+
+
+//admin
+$router->get('/admin/dashboard', [AdminController::class, 'index']);
+
+//auth
 $router->get('/login', [AuthController::class, 'loginView']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->get('/register', [AuthController::class, 'registerView']);

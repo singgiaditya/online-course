@@ -8,14 +8,6 @@ use App\Models\UserModel;
 
 class AdminController extends Controller{
     public function index(){
-        $userModel = new UserModel();
-        $users = $userModel->getAllUser();
-
-        $params = [
-           'users' => $users, 
-           'test' => 'anjay mabar' 
-        ];
-
-        $this->view('Test', $params);
+        $this->view('admin/dashboard');
     }
 }

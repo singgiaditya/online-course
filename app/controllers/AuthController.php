@@ -34,16 +34,20 @@ class AuthController extends Controller{
         if($user['role'] == 'user')
         {
             header("location: ./");
+            exit();
         }
         else if($user['role'] == 'admin'){
-            header("location: dashboard");
+            header("location: ./admin/dashboard");
+            exit();
         }else
         {
-            header("location: ./login");
+            header("location: ./login?message=gagal user");
+            exit();
         }
      }else
      {
-        header("location:  ./login");
+        header("location:  ./login?message=gagal login");
+        exit();
      }
 
     }
@@ -57,8 +61,11 @@ class AuthController extends Controller{
         
         $userModels = new UserModel();
 
-        if ($userModels->register($email, $name, $password, $telephone)) {
+        $result = $userModels->register($email, $name, $password, $telephone);
+
+        if ($result) {
             header('location: ./login?message=success');
+            exit();
         }
 
         header('location: ./login?message=fail');

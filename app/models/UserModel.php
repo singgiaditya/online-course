@@ -5,6 +5,7 @@ namespace App\Models;
 require_once 'app/core/Database.php';
 
 use Database;
+use PDOException;
 
 class UserModel{
     private $table = 'user';
@@ -32,10 +33,11 @@ class UserModel{
 
         try {
             $this->db->execute();
-            return true;
-        } catch (\Throwable $th) {
-            return $th;
+        } catch(PDOException $e){
+            return false;
         }
+
+        return true;
 
     }
 

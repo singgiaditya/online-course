@@ -38,6 +38,10 @@ class Router {
         $requestPath = substr($requestPath, 13); // Adjust as necessary for your base path
         $method = $_SERVER['REQUEST_METHOD'];
 
+        if (file_exists(__DIR__ . '/public' . $requestPath)) {
+            return false; // Let the server handle the request
+        }
+
         $callback = null;
         $params = [];
         $middlewares = [];
