@@ -17,6 +17,9 @@ $router->get('/', [HomeController::class, 'index']);
 
 //admin
 $router->get('/admin/dashboard', [AdminController::class, 'index']);
+$router->get('/admin/category', [AdminController::class, 'categoryView']);
+$router->post('/admin/category', [AdminController::class, 'addCategory']);
+$router->post('/admin/category/delete', [AdminController::class, 'addCategory']);
 
 //auth
 $router->get('/login', [AuthController::class, 'loginView']);
