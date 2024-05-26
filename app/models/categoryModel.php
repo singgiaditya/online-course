@@ -46,5 +46,21 @@ class CategoryModel{
         return true;
     }
 
+    public function editCategory($id, $category) : bool {
+        try {
+            foreach ($id as $index => $value) {
+                $query = "UPDATE category SET category = :category WHERE id = :id";
+                $this->db->query($query);
+                $this->db->bind("category", "$category[$index]");
+                $this->db->bind("id", "$value");
+                $this->db->execute();
+            }
+        } catch (PDOException $e) {
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

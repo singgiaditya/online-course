@@ -20,7 +20,7 @@
                                     </table>
                                 </form>
                             </div>
-        <form>
+        <form action="./category/edit" method="post">
             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10">
                                 <thead>
                                 <tr>
@@ -41,7 +41,7 @@
                                         <input id="category" style="border: none;" type="text" name="category[]" value=<?php echo '"'.$category['category'].'"' ?> disabled>
                                     </td>
                                     <td>
-                                        <input id="id" name="id[]" type="hidden" value=<?php echo '"'.$category['id'].'"'?>>
+                                        <input id="id" name="id[]" type="hidden" value=<?php echo '"'.$category['id'].'"'?> disabled>
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
@@ -71,13 +71,16 @@
     function editHandler(el){
         var parent = el.parentNode.parentNode.parentNode;
         var category = parent.querySelector('#category')
+        var id = parent.querySelector('#id');
+
+        id.removeAttribute('disabled');
         category.removeAttribute('disabled');
         category.style.border = "1px solid black";
     }
 
     function deleteHandler(el){
         var parent = el.parentNode.parentNode.parentNode;
-        var id = parent.querySelector('#id')
+        var id = parent.querySelector('#id');
         var value = id.value;
         
         swal({

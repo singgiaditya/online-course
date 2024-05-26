@@ -52,6 +52,17 @@ class AdminController extends Controller{
         echo json_encode($return);
     }
 
+    public function editCategory(){
+        $id = $_POST['id'];
+        $category = $_POST['category'];
+
+        $categoryModel = new CategoryModel();
+        
+        $result = $categoryModel->editCategory($id, $category);
+
+        header("Location:http://localhost/onlineCourse/admin/category");
+    }
+
     
 
 }
