@@ -41,7 +41,7 @@
                                         <input id="category" style="border: none;" type="text" name="category[]" value=<?php echo '"'.$category['category'].'"' ?> disabled>
                                     </td>
                                     <td>
-                                        <input name="id[]" type="hidden" value=<?php echo '"'.$category['category'].'"'?>>
+                                        <input id="id" name="id[]" type="hidden" value=<?php echo '"'.$category['id'].'"'?>>
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
@@ -73,40 +73,57 @@
         var category = parent.querySelector('#category')
         category.removeAttribute('disabled');
         category.style.border = "1px solid black";
-        console.log(category);
     }
 
     function deleteHandler(el){
+        var parent = el.parentNode.parentNode.parentNode;
+        var id = parent.querySelector('#id')
+        var value = id.value;
         
         swal({
-                        title: "Are you sure?",
-                        text: "Your will not be able to recover this imaginary file!",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it!",
-                        cancelButtonText: "No, cancel plx!",
-                        closeOnConfirm: false,
-                        closeOnCancel: false },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            swal({
-                                    title: "Good job!",
-                                    text: "You clicked the button!",
-                                    type: "success",
-                                    closeOnConfirm:false,
-                                },
-                            function(isConfirm) {
-                                if (isConfirm) {
-                                    
-                                }
-                            }
-                            );
-                        } else {
-                            swal("Cancelled", "Your imaginary file is safe :)", "error");
-                        }
-                    });
-    }
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel please!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            // Send an AJAX POST request to delete the item
+            $.ajax({
+                type: "POST",
+                url: "./category/delete",
+                data: { id: value },
+                dataType: 'json',
+                success: function(response) {
+                    // Check if the deletion was successful
+                    if (response.status == 200) {
+                        swal({
+                            title: "Deleted!",
+                            text: "Your imaginary file has been deleted.",
+                            type: "success",
+                            closeOnConfirm: false
+                        }, function() {
+                            // Reload the page to reflect changes
+                            window.location.reload();
+                        });
+                    } else {
+                        swal("Error", "Something went wrong! Please try again.", "error");
+                    }
+                },
+                error: function() {
+                    swal("Error", "Something went wrong with the request! Please try again.", "error");
+                }
+            });
+        } else {
+            swal("Cancelled", "Your imaginary file is safe :)", "error");
+        }
+    });
+}
+
 </script>
 <!-- Sweet alert -->
 <script src="../public/js/plugins/sweetalert/sweetalert.min.js"></script>

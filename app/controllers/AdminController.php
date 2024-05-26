@@ -36,9 +36,20 @@ class AdminController extends Controller{
         
         $result = $model->deleteCategory($id);
 
-        
-
-        header("location: ./category");
+        if($result){
+            $return = array(
+                'status' => 200,
+                'message' => "OK"
+            );
+            http_response_code(200);
+        } else {
+            $return = array(
+                'status' => 403,
+                'message' => "Failed"
+            );
+            http_response_code(403);
+        }
+        echo json_encode($return);
     }
 
     

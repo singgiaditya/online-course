@@ -17,24 +17,12 @@ class CategoryModel{
         $this->db = new Database();
     }
 
-    public function getAllCategory(){
+    public function getAllCategory() : array {
         $this->db->query('SELECT * FROM '.$this->table);
         return $this->db->resultSet();
     }
 
-    public function deleteCategory($id){
-        $query = "DELETE FROM category (`id`) VALUES (:id)";
-        $this->db->query($query);
-        $this->db->bind(":id", $id);
-        try {
-            $this->db->execute();
-        } catch(PDOException $e){
-            return false;
-        }
-        return true;
-    }
-
-    public function addCategory($category){
+    public function addCategory($category) : bool {
         $query = "INSERT INTO category (`category`) VALUES (:category)";
         $this->db->query($query);
         $this->db->bind(":category", $category);
@@ -45,4 +33,18 @@ class CategoryModel{
         }
         return true;
     }
+
+    public function deleteCategory($id) : bool{
+        $query = "DELETE FROM category where id = :id";
+        $this->db->query($query);
+        $this->db->bind(":id", $id);
+        try {
+            $this->db->execute();
+        } catch(PDOException $e){
+            return false;
+        }
+        return true;
+    }
+
+
 }
