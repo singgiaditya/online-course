@@ -17,10 +17,19 @@ $router->get('/', [HomeController::class, 'index']);
 
 //admin
 $router->get('/admin/dashboard', [AdminController::class, 'index']);
+
+//admin-category
 $router->get('/admin/category', [AdminController::class, 'categoryView']);
 $router->post('/admin/category', [AdminController::class, 'addCategory']);
 $router->post('/admin/category/delete', [AdminController::class, 'deleteCategory']);
 $router->post('/admin/category/edit', [AdminController::class, 'editCategory']);
+
+//admin-course
+$router->get('/admin/course', [AdminController::class, 'courseView']);
+$router->get('/admin/course/create', [AdminController::class, 'courseCreateView']);
+$router->post('/admin/course/create', [AdminController::class, 'addCourse']);
+$router->get('/admin/course/{id}', [AdminController::class, 'courseEditView']);
+$router->post('/admin/course/delete', [AdminController::class, 'deleteCourse']);
 
 
 //auth

@@ -8,12 +8,13 @@
 
     <title>+OC | Dashboard</title>
 
-    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../public/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="../public/css/animate.css" rel="stylesheet">
-    <link href="../public/css/style.css" rel="stylesheet">
+    <link href="/onlineCourse/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/onlineCourse/public/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/onlineCourse/public/css/animate.css" rel="stylesheet">
+    <link href="/onlineCourse/public/css/style.css" rel="stylesheet">
+
     <!-- Sweet Alert -->
-    <link href="../public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/onlineCourse/public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 </head>
 
@@ -27,15 +28,15 @@
                 <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                     <i class="fa fa-reorder"></i>
                 </button>
-                <a href="./admin/dashboard" class="navbar-brand">+OC</a>
+                <a href="/onlineCourse/admin/dashboard" class="navbar-brand">+OC</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Products <span class="caret"></span></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="./category">Category</a></li>
+                            <li><a href="/onlineCourse/admin/course">Course</a></li>
+                            <li><a href="/onlineCourse/admin/category">Category</a></li>
                             <li><a href="">Menu item</a></li>
                             <li><a href="">Menu item</a></li>
                         </ul>

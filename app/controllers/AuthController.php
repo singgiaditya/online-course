@@ -29,6 +29,7 @@ class AuthController extends Controller{
 
      if($user)
      {
+        session_start();
         $_SESSION['user'] = $user;
 
         if($user['role'] == 'user')
