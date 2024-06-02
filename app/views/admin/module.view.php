@@ -1,4 +1,4 @@
-<?php include "app/views/admin/header.php" ?>
+<?php include "header.php" ?>
 
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 <div class="row">
@@ -6,51 +6,40 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="mb-3">
-                                <h2>Courses</h2>
-                                <a href="./course/create">Create a new Course</a>
+                                <h2><?php echo $course['title'] ?> Modules</h2>
+                                <a href="./course/create">Create a new Module</a>
                             </div>
         <form action="/onlineCourse/admin/course/delete" method="post">
             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th data-hide="phone"></th>
                                     <th data-hide="phone">Title</th>
-                                    <th data-hide="phone">Description</th>
-                                    <th data-hide="phone">Price</th>
-                                    <th data-hide="phone">Category</th>
+                                    <th data-hide="phone">Content</th>
+                                    <th data-hide="phone">Video</th>
                                     <th data-hide="phone">Delete</th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                            <?php foreach ($courses as $index => $course) { ?>
                                 <tr>
                                     <td>
-                                      <?php echo $index+1 ?>
+                                      <?php 0?>
                                     </td>
                                     <td>
-                                        <img src="/onlineCourse/public/storage/<?php echo $course['picture'] ?>" style="height: 50px;">
+                                      <?php  ?>
                                     </td>
                                     <td>
-                                      <?php echo $course['title'] ?>
+                                        <?php  ?>  
                                     </td>
+                                    <td><?php  ?></td>
                                     <td>
-                                        <?php echo $course['description'] ?>  
-                                    </td>
-                                    <td>
-                                        Rp.<?php echo $course['price'] ?>
-                                    </td>
-                                    <td><?php echo $course['category'] ?></td>
-                                    <td>
-                                        <input name="delete[]" type="checkbox" value="<?php echo $course['id'] ?>">
+                                        <input name="delete[]" type="checkbox" value="<?php  ?>">
                                     </td>
                                     <td class="text-right">
-                                        <a href="/onlineCourse/admin/course/<?php echo $course['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-                                        <a href="/onlineCourse/admin/course/<?php echo $course['id'] ?>/module" class="btn btn-success btn-sm">Module</a>
+                                        <a href="/onlineCourse/admin/course/<?php  ?>" class="btn btn-primary btn-sm">Edit</a>
                                     </td>
                                 </tr>
-                                <?php } ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -69,6 +58,6 @@
                             </div>
 
 
-<?php require_once "app/views/admin/footer.php" ?>
+<?php require_once "footer.php" ?>
 
 

@@ -1,5 +1,8 @@
 <?php include "header.php" ?>
 
+<link href="../public/css/plugins/footable/footable.core.css" rel="stylesheet">
+
+
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 <div class="row">
                 <div class="col-lg-12">
@@ -130,6 +133,17 @@
 </script>
 <!-- Sweet alert -->
 <script src="../public/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script src="../public/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+    </script>
 
 <?php include "footer.php" ?>
 

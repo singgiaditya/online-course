@@ -43,7 +43,7 @@
                             <select name="category" class="form-control">
                                 <?php
                                 foreach ($categories as $category) { ?>
-                                <option value="<?php echo $category['id']?>"><?php echo $category['category']?></option>
+                                <option value="<?php echo $category['id']?>" <?php if($category['id'] == $course['id_category']) echo 'selected' ?>><?php echo $category['category']?></option>
                                 <?php } ?>
                             </select>
                         </div>
