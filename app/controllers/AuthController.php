@@ -29,6 +29,8 @@ class AuthController extends Controller{
 
      if($user)
      {
+        unset($user['password']);
+        
         session_start();
         $_SESSION['user'] = $user;
 
@@ -71,5 +73,11 @@ class AuthController extends Controller{
 
         header('location: ./login?message=fail');
 
+    }
+
+    public function logout(){
+        session_unset();
+        session_destroy();
+        header('Location:/onlineCourse/login');
     }
 }
