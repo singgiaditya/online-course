@@ -1,5 +1,6 @@
 <?php
 
+//controller
 require_once 'router.php';
 require_once 'app/controllers/HomeController.php';
 require_once 'app/controllers/AdminController.php';
@@ -7,15 +8,20 @@ require_once 'app/controllers/AuthController.php';
 require_once 'app/controllers/CategoryController.php';
 require_once 'app/controllers/CourseController.php';
 require_once 'app/controllers/ModuleController.php';
+require_once 'app/controllers/QuizController.php';
+//middleware
 require_once 'app/middleware/AuthMiddleware.php';
 require_once 'app/middleware/AdminMiddleware.php';
 
+//controller
 use App\Controllers\CategoryController;
 use App\Controllers\HomeController;
 use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 use App\Controllers\CourseController;
 use App\Controllers\ModuleController;
+use App\Controllers\QuizController;
+//middleware
 use App\Middleware\AuthMiddleware;
 use App\Middleware\AdminMiddleware;
 
@@ -46,31 +52,19 @@ $router->post('/admin/category/edit', [CategoryController::class, 'editCategory'
 $router->get('/admin/course', [CourseController::class, 'index'], [new AuthMiddleware, new AdminMiddleware]);
 $router->get('/admin/course/create', [CourseController::class, 'courseCreateView'], [new AuthMiddleware, new AdminMiddleware]);
 $router->post('/admin/course/create', [CourseController::class, 'addCourse'], [new AuthMiddleware, new AdminMiddleware]);
+$router->post('/admin/course/delete', [CourseController::class, 'deleteCourse'], [new AuthMiddleware, new AdminMiddleware]);
 $router->get('/admin/course/{id}', [CourseController::class, 'courseEditView'], [new AuthMiddleware, new AdminMiddleware]);
 $router->post('/admin/course/{id}', [CourseController::class, 'editCourse'], [new AuthMiddleware, new AdminMiddleware]);
-$router->post('/admin/course/delete', [CourseController::class, 'deleteCourse'], [new AuthMiddleware, new AdminMiddleware]);
 
 //admin-module
-$router->get('/admin/course/{id}/module', [ModuleController::class, 'moduleView'], [new AuthMiddleware, new AdminMiddleware]);
+$router->get('/admin/course/{id}/module', [ModuleController::class, 'index'], [new AuthMiddleware, new AdminMiddleware]);
+$router->post('/admin/course/{id}/module', [ModuleController::class, 'addNewModule'], [new AuthMiddleware, new AdminMiddleware]);
+$router->post('/admin/course/{id}/module/delete', [ModuleController::class, 'deleteModules'], [new AuthMiddleware, new AdminMiddleware]);
+$router->post('/admin/course/{id}/module/edit', [ModuleController::class, 'editModule'], [new AuthMiddleware, new AdminMiddleware]);
 
-
-
-
-
-
-//example of dynamic routing
-// $router->get('/user/{id}', function($params) {
-//     echo "User ID: " . $params['id'];
-// });
-
-// $router->get('/post/{id}/comment/{commentId}', function($params) {
-//     echo "Post ID: " . $params['id'] . ", Comment ID: " . $params['commentId'];
-// });
-
-// Rute dengan middleware autentikasi
-// $router->get('/user/{id}', function($params) {
-//     echo "User ID: " . $params['id'];
-// }, [new AuthMiddleware()]);
-
+//admin-quiz
+$router->get('/admin/course/{id}/module/{module}/quiz', [QuizController::class, 'index'], [new AuthMiddleware, new AdminMiddleware]);
+$router->post('/admin/course/{id}/module/{module}/quiz', [QuizController::class, 'addQuiz'], [new AuthMiddleware, new AdminMiddleware]);
+$router->post('/admin/course/{id}/module/{module}/quiz/edit', [QuizController::class, 'editQuiz'], [new AuthMiddleware, new AdminMiddleware]);
 
 $router->run();

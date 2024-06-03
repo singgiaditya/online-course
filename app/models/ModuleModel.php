@@ -28,10 +28,19 @@ class ModuleModel{
         return $this->db->resultSet();
     }
 
-    public function addCategory($category) : bool {
-        $query = "INSERT INTO category (`category`) VALUES (:category)";
+    public function getModuleById($id) {
+        $this->db->query('SELECT * FROM '.$this->table.' where id = :id');
+        $this->db->bind(':id' , $id);
+        return $this->db->single();
+    }
+
+    public function addModule($idCourse, $title, $content, $video) : bool {
+        $query = "INSERT INTO module (`id_course`, `title`, `content`, `video`) VALUES (:id_course, :title, :content, :video)";
         $this->db->query($query);
-        $this->db->bind(":category", $category);
+        $this->db->bind(":id_course", $idCourse);
+        $this->db->bind(":title", $title);
+        $this->db->bind(":content", $content);
+        $this->db->bind(":video", $video);
         try {
             $this->db->execute();
         } catch(PDOException $e){
@@ -40,25 +49,12 @@ class ModuleModel{
         return true;
     }
 
-    public function deleteCategory($id) : bool{
-        $query = "DELETE FROM category where id = :id";
-        $this->db->query($query);
-        $this->db->bind(":id", $id);
-        try {
-            $this->db->execute();
-        } catch(PDOException $e){
-            return false;
-        }
-        return true;
-    }
-
-    public function editCategory($id, $category) : bool {
+    public function deleteModules($id) : bool{
         try {
             foreach ($id as $index => $value) {
-                $query = "UPDATE category SET category = :category WHERE id = :id";
+                $query = "DELETE from module  WHERE id = :id";
                 $this->db->query($query);
-                $this->db->bind("category", "$category[$index]");
-                $this->db->bind("id", "$value");
+                $this->db->bind(":id", $value);
                 $this->db->execute();
             }
         } catch (PDOException $e) {
@@ -67,6 +63,39 @@ class ModuleModel{
 
         return true;
     }
+    
 
+    public function editModule($id, $idCourse, $title, $content, $video) : bool {
+        $query = "UPDATE module SET id_course = :id_course, title = :title, content = :content, video = :video  WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(":id_course", $idCourse);
+        $this->db->bind(":title", $title);
+        $this->db->bind(":content", $content);
+        $this->db->bind(":video", $video);
+        $this->db->bind("id", $id);
+        try {
+            $this->db->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
+    }
+
+    public function editModuleWithoutContent($id, $idCourse, $title, $video) : bool {
+        $query = "UPDATE module SET id_course = :id_course, title = :title, video = :video  WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(":id_course", $idCourse);
+        $this->db->bind(":title", $title);
+        $this->db->bind(":video", $video);
+        $this->db->bind("id", $id);
+        try {
+            $this->db->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
+    }
+
+    
 
 }
