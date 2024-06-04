@@ -1,5 +1,8 @@
 <?php include "header.php" ?>
 
+<link href="/onlineCourse/public/css/plugins/footable/footable.core.css" rel="stylesheet">
+
+
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 <div class="row">
                 <div class="col-lg-12">
@@ -38,7 +41,7 @@
             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10">
                                 <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th data-toggle="true">No.</th>
                                     <th data-hide="phone">Title</th>
                                     <th data-hide="phone">Content</th>
                                     <th data-hide="phone">Video</th>
@@ -133,7 +136,19 @@
                                 }
                             </script>
 
+                            
+
 
 <?php require_once "footer.php" ?>
+
+
+<script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+</script>
 
 

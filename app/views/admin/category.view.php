@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th data-hide="phone">Category</th>
-                                    <th data-hide="phone"></th>
+                                    <th data-sort-ignore="true"></th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
                                 </tr>
                                 </thead>
@@ -134,7 +134,11 @@
 <!-- Sweet alert -->
 <script src="../public/js/plugins/sweetalert/sweetalert.min.js"></script>
 
-<script src="../public/js/plugins/footable/footable.all.min.js"></script>
+
+
+
+
+<?php include "footer.php" ?>
 
 <script>
         $(document).ready(function() {
@@ -143,8 +147,6 @@
 
         });
 
-    </script>
-
-<?php include "footer.php" ?>
+</script>
 
 

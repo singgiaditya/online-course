@@ -33,10 +33,10 @@
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="/onlineCourse/admin/course"> Course</a>
+                        <a aria-expanded="false" role="button" href="/onlineCourse/courses"> Courses</a>
                     </li>
                     <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="/onlineCourse/admin/category" > Category</a>
+                        <a aria-expanded="false" role="button" href="/onlineCourse/my/courses" > My Courses</a>
                     </li>
 
                 </ul>

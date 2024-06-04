@@ -41,14 +41,12 @@ class QuizModel{
         return true;
     }
 
-    public function deleteModules($id) : bool{
+    public function deleteQuiz($id) : bool{
+        $query = "DELETE from quiz  WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(":id", $id);
         try {
-            foreach ($id as $index => $value) {
-                $query = "DELETE from module  WHERE id = :id";
-                $this->db->query($query);
-                $this->db->bind(":id", $value);
-                $this->db->execute();
-            }
+            $this->db->execute();
         } catch (PDOException $e) {
             return false;
         }

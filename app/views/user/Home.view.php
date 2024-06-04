@@ -6,20 +6,20 @@
                 <div class="col-md-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Courses</h5>
+                            <h5>My Courses</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins"><?php echo $course ?></h1>
+                            <h1 class="no-margins"><?php echo 10 ?></h1>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Users</h5>
+                            <h5>Course Complete</h5>
                         </div>
                         <div class="ibox-content">
-                                    <h1 class="no-margins"><?php echo count($user) ?></h1>
+                                    <h1 class="no-margins"><?php echo 2?></h1>
                         </div>
                     </div>
                 </div>
@@ -27,13 +27,13 @@
                 <div class="col-md-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Course Sold</h5>
+                            <h5>Course Uncomplete</h5>
                         </div>
                         <div class="ibox-content">
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h1 class="no-margins">20</h1>
+                                    <h1 class="no-margins">8</h1>
                                 </div>
                             </div>
 
@@ -44,7 +44,7 @@
                 <div class="col-md-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Total Sales</h5>
+                            <h5>Total Post</h5>
                             <div class="ibox-tools">
                             </div>
                         </div>
@@ -52,7 +52,7 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h1 class="no-margins">20</h1>
+                                    <h1 class="no-margins">1</h1>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>User Table </h5>
+                                <h5>My Courses </h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
                                         <i class="fa fa-chevron-up"></i>
@@ -108,26 +108,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($user as $index => $value) {    
+                                <?php   
                                 ?>
                                 <tr>
                                     <td>
-                                      <?php echo $index+1?>
+                                      <?php echo 1?>
                                     </td>
                                     <td>
-                                      <?php echo $value['name']  ?>
+                                      <?php echo 'asd'  ?>
                                     </td>
                                     <td>
-                                        <?php echo $value['email']  ?>
+                                        <?php echo 'asd'  ?>
                                     </td>
                                     <td>
-                                        <?php echo $value['telephone']  ?>
+                                        <?php echo 'asd'  ?>
                                     </td>
                                     <td>
-                                        <?php echo $value['role']  ?>
+                                        <?php echo 'asd'  ?>
                                     </td>
                                 </tr>
-                                <?php } ?>
+                                <?php ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
