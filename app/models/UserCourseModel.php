@@ -44,10 +44,18 @@ class UserCourseModel{
     }
 
     public function getUserCourse($id) : array {
-        $this->db->query('SELECT user_course.id, course.title, course.description, course.picture, category.category FROM user_course, course, category 
+        $this->db->query('SELECT user_course.id, user_course.id_course, course.title, course.description, course.picture, category.category FROM user_course, course, category 
                         WHERE user_course.id_course = course.id AND course.id_category = category.id AND id_user = :id');
         $this->db->bind(':id', $id);
         return $this->db->resultSet();
+    }
+
+    public function getUserCourseById($idUser, $idCourse){
+        $this->db->query('SELECT user_course.id, user_course.id_course, course.title, course.description, course.picture, category.category, user_course.final_project, user_course.`status` FROM user_course, course, category WHERE user_course.id_course = course.id 
+                        AND course.id_category = category.id AND id_user = :id_user AND course.id = :id_course');
+        $this->db->bind(':id_user', $idUser);
+        $this->db->bind(':id_course', $idCourse);
+        return $this->db->single();
     }
 
 

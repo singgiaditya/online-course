@@ -11,6 +11,7 @@ require_once 'app/controllers/ModuleController.php';
 require_once 'app/controllers/QuizController.php';
 require_once 'app/controllers/AnswerController.php';
 require_once 'app/controllers/CoursesController.php';
+
 //middleware
 require_once 'app/middleware/AuthMiddleware.php';
 require_once 'app/middleware/AdminMiddleware.php';
@@ -43,8 +44,6 @@ $router->post('/login', [AuthController::class, 'login'], [new GuestMiddleware])
 $router->get('/register', [AuthController::class, 'registerView'], [new GuestMiddleware]);
 $router->post('/register', [AuthController::class, 'register'], [new GuestMiddleware]);
 $router->get('/logout', [AuthController::class, 'logout'], [new AuthMiddleware]);
-
-
 
 //admin
 $router->get('/admin/dashboard', [AdminController::class, 'index'], [new AuthMiddleware, new AdminMiddleware]);
@@ -87,6 +86,9 @@ $router->get('/course/{id}', [CoursesController::class, 'courseDetail'], [new Au
 $router->post('/course/{id}', [CoursesController::class, 'buyCourse'], [new AuthMiddleware]);
 //user->my-courses
 $router->get('/my/courses', [CoursesController::class, 'myCourse'], [new AuthMiddleware]);
+$router->get('/my/course/{id}', [CoursesController::class, 'myCourseDetail'], [new AuthMiddleware]);
+//user->submitQuiz
+$router->post('/my/course/{id}/quiz', [CoursesController::class, 'submitQuiz'], [new AuthMiddleware]);
 
 
 

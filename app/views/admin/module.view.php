@@ -63,7 +63,7 @@
                                         <a  href="/onlineCourse/public/storage/<?php echo $module['content']  ?>">Download Module</a>
                                     </td>
                                     <td>
-                                    <iframe id="video" width="220" height="115"
+                                    <iframe id="video" width="220" height="115" allowfullscreen="true"
                                     src="<?php echo $module['video']  ?>">
                                     </iframe>
                                     </td>
