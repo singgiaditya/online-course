@@ -11,11 +11,16 @@ require_once 'app/controllers/ModuleController.php';
 require_once 'app/controllers/QuizController.php';
 require_once 'app/controllers/AnswerController.php';
 require_once 'app/controllers/CoursesController.php';
+require_once 'app/controllers/ForumController.php';
+require_once 'app/controllers/MentorController.php';
+require_once 'app/controllers/ProfileController.php';
 
 //middleware
 require_once 'app/middleware/AuthMiddleware.php';
 require_once 'app/middleware/AdminMiddleware.php';
 require_once 'app/middleware/GuestMiddleware.php';
+require_once 'app/middleware/MentorMiddleware.php';
+
 
 //controller
 use App\Controllers\CategoryController;
@@ -27,10 +32,14 @@ use App\Controllers\ModuleController;
 use App\Controllers\QuizController;
 use App\Controllers\AnswerController;
 use App\Controllers\CoursesController;
+use App\Controllers\ForumController;
+use App\Controllers\MentorController;
+use App\Controllers\ProfileController;
 //middleware
 use App\Middleware\AuthMiddleware;
 use App\Middleware\AdminMiddleware;
 use App\Middleware\GuestMiddleware;
+use App\Middleware\MentorMiddleware;
 
 
 
@@ -87,8 +96,28 @@ $router->post('/course/{id}', [CoursesController::class, 'buyCourse'], [new Auth
 //user->my-courses
 $router->get('/my/courses', [CoursesController::class, 'myCourse'], [new AuthMiddleware]);
 $router->get('/my/course/{id}', [CoursesController::class, 'myCourseDetail'], [new AuthMiddleware]);
+$router->post('/my/course/{id}/project', [CoursesController::class, 'submitProject'], [new AuthMiddleware]);
 //user->submitQuiz
 $router->post('/my/course/{id}/quiz', [CoursesController::class, 'submitQuiz'], [new AuthMiddleware]);
+
+//forum
+$router->get('/course/{id}/forum', [ForumController::class, 'courseForum'], [new AuthMiddleware]);
+$router->get('/course/{id}/forum/{forum}', [ForumController::class, 'detailForum'], [new AuthMiddleware]);
+$router->post('/course/{id}/forum/{forum}', [ForumController::class, 'addComment'], [new AuthMiddleware]);
+$router->post('/forum/post', [ForumController::class, 'addPost'], [new AuthMiddleware]);
+$router->post('/course/{id}/forum/{forum}/edit', [ForumController::class, 'editPost'], [new AuthMiddleware]);
+$router->get('/course/{id}/forum/{forum}/delete', [ForumController::class, 'deletePost'], [new AuthMiddleware]);
+$router->get('/forum', [MentorController::class, 'listForum'], [new AuthMiddleware]);
+
+
+//mentor
+$router->get('/mentor/dashboard', [MentorController::class, 'index'], [new AuthMiddleware, new MentorMiddleware]);
+$router->post('/mentor/dashboard', [MentorController::class, 'updateStatusCourse'], [new AuthMiddleware, new MentorMiddleware]);
+
+$router->get('/profile', [ProfileController::class, 'index'], [new AuthMiddleware]);
+$router->post('/profile', [ProfileController::class, 'editProfile'], [new AuthMiddleware]);
+$router->post('/profile/password', [ProfileController::class, 'changePassword'], [new AuthMiddleware]);
+
 
 
 

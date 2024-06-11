@@ -1,5 +1,6 @@
 <?php include "header.php" ?>
 <div class="wrapper wrapper-content animated fadeInRight">
+    <h2>Buy Courses</h2>
             <div class="row">
                 <?php foreach ($courses as $key => $course) {
                 ?>

@@ -18,7 +18,9 @@ class UserCourseModel{
     }
 
     public function getAllUserCourse() : array {
-        $this->db->query('SELECT * FROM '.$this->table);
+        $this->db->query('SELECT user_course.id, user_course.final_project, user_course.status, user_course.id_course, course.title, course.description, course.picture, 
+        category.category, user_course.id_user, user.name FROM user_course, course, category, user 
+        WHERE user_course.id_course = course.id AND course.id_category = category.id AND user_course.id_user = user.id');
         return $this->db->resultSet();
     }
 
@@ -56,6 +58,31 @@ class UserCourseModel{
         $this->db->bind(':id_user', $idUser);
         $this->db->bind(':id_course', $idCourse);
         return $this->db->single();
+    }
+
+    public function submitProject($id, $project){
+        $this->db->query('UPDATE user_course set final_project = :project, status = :status where id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->bind(':project', $project);
+        $this->db->bind(':status', 'review');
+        try {
+            $this->db->execute();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function updateStatus($id, $status){
+        $this->db->query('UPDATE user_course set status = :status where id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->bind(':status', $status);
+        try {
+            $this->db->execute();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
 

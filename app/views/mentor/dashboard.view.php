@@ -1,4 +1,4 @@
-<?php include('header.php'); ?>
+<?php require_once 'header.php' ?>
 
 <div class="wrapper wrapper-content">
             <div class="container">
@@ -9,7 +9,7 @@
                             <h5>My Courses</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins"><?php echo count($courses) ?></h1>
+                            <h1 class="no-margins"><?php echo 10 ?></h1>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                             <h5>Course Complete</h5>
                         </div>
                         <div class="ibox-content">
-                                    <h1 class="no-margins"><?php echo $courseComplete?></h1>
+                                    <h1 class="no-margins"><?php echo 2?></h1>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h1 class="no-margins"><?php echo $courseComplete?></h1>
+                                    <h1 class="no-margins">8</h1>
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h1 class="no-margins"><?php echo $post ?></h1>
+                                    <h1 class="no-margins">1</h1>
                                 </div>
                             </div>
                         </div>
@@ -86,6 +86,7 @@
                                     </a>
                                 </div>
                             </div>
+                            <form method="post">
                             <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-sm-9 m-b-xs">
@@ -101,33 +102,40 @@
                                 <thead>
                                 <tr>
                                     <th data-toggle="true">No.</th>
-                                    <th data-hide="phone"></th>
-                                    <th data-hide="phone">Title</th>
-                                    <th data-hide="phone">Description</th>
-                                    <th data-hide="phone">Category</th>
+                                    <th data-hide="phone">Course</th>
+                                    <th data-hide="phone">User</th>
+                                    <th data-hide="phone">Project</th>
+                                    <th data-hide="phone">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php   foreach ($courses as $key => $course) {
+                                    <!-- table  -->
+                                <?php  foreach ($user_courses as $key => $course) { 
                                 ?>
                                 <tr>
                                     <td>
-                                        <?php echo $key+1 ?>
-                                    </td>
-                                    <td>
-                                      <img height="60" src="/onlineCourse/public/storage/<?php echo $course['picture'] ?>" alt="">
+                                      <?php echo $key+1?>
+                                      <input type="text" name="id_user_course[]" value="<?php echo $course['id'] ?>">
                                     </td>
                                     <td>
                                       <?php echo $course['title']  ?>
                                     </td>
                                     <td>
-                                        <?php echo $course['description']  ?>
+                                        <?php echo $course['name']   ?>
                                     </td>
                                     <td>
-                                        <?php echo $course['category']  ?>
+                                        <a href='<?php echo  $course['final_project'] ?>'><?php echo  $course['final_project'] ?></a>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" name="status[]">
+                                            <option value="uncomplete" <?php if($course['status'] == 'uncomplete') echo 'selected'  ?>>uncomplete</option>
+                                            <option value="review" <?php if($course['status'] == 'review') echo 'selected'  ?>>review</option>
+                                            <option value="complete" <?php if($course['status'] == 'complete') echo 'selected'  ?>>complete</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <?php } ?>
+                                <!-- end table  -->
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -136,7 +144,9 @@
                                     </td>
                                 </tr>
                                 </tfoot>
-                            </table>
+                            </table> 
+                            <button class="btn btn-primary" type="submit">Save</button>
+                            </form>
                                 </div>
 
                             </div>
@@ -158,3 +168,4 @@
         });
 
 </script>
+<?php require_once 'footer.php' ?>

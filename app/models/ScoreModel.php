@@ -22,6 +22,13 @@ class ScoreModel{
         return $this->db->resultSet();
     }
 
+    public function getScoresByIdModule($id, $idUser) {
+        $this->db->query('SELECT * FROM scores WHERE id_module = :id AND id_user  = :id_user');
+        $this->db->bind(':id', $id);
+        $this->db->bind(':id_user', $idUser);
+        return $this->db->single();
+    }
+
     public function addScore($idModule, $idUser, $score) : bool {
         $query = "INSERT INTO scores (`id_module`, `id_user`, `score`) VALUES (:module, :user, :score)";
         $this->db->query($query);
@@ -35,6 +42,7 @@ class ScoreModel{
         }
         return true;
     }
+
 
     public function editScore($id, $score) : bool {
         try {

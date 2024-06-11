@@ -7,11 +7,14 @@
                     <div class="ibox-title">
                         <h5>Status<small class="m-l-sm  btn 
                         <?php if($course['status'] == 'uncomplete'){
-                            echo 'btn-danger';
+                            echo 'btn-warning';
                         }else if($course['status'] == 'complete'){
                             echo 'btn-primary';
+                        }else if($course['status'] == 'review'){
+                            echo 'btn-success';
                         } ?>
                          btn-xs"><?php echo $course['status'] ?></small></h5>
+                         <div class="text-right"><a href="/onlineCourse/course/<?php echo $id ?>/forum" class="btn btn-primary">Forum</a></div>
                     </div>
                     <div class="ibox-content">
                         <h2>
@@ -20,12 +23,13 @@
                         <p>
                             <?php echo $course['description'] ?>                            
                         </p>
-                        <form style="max-width: 25%;">
+                        <form action="/onlineCourse/my/course/<?php echo $id ?>/project" method="post" style="max-width: 25%;">
                             <div style="margin-bottom: 12px;">
-                                <input type="text" class="form-control" placeholder="link github">
+                                <input type="text" name="project" class="form-control" placeholder="link github" value="<?php echo $course['final_project'] ?>">
                             </div>
+                            <input style="display: none;" type="text" name="id" class="form-control" value="<?php echo $course['id'] ?>">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-success">Submit Final Project</button>
+                                <button type="submit" class="btn btn-success" <?php if($course['status'] == 'complete' || $course['status'] == 'review') echo 'disabled' ?> >Submit Final Project</button>
                             </div>
                         </form>
                     </div>
@@ -43,9 +47,11 @@
                                     <th data-hide="phone">Content</th>
                                     <th data-hide="phone">Video</th>
                                     <th class="text-right" data-sort-ignore="true">Action</th>
+                                    <th class="text-center">Score</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                
                                 <?php foreach ($modules as $index => $module) {    
                                 ?>
                                 <tr>
@@ -66,6 +72,9 @@
                                     <td class="text-right">
                                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#quizModal<?php echo $index?>">Quiz</button>
                                     </td>
+                                    <td class="text-center"><?php if (isset($scores[$index])) {
+                                        echo $scores[$index];
+                                    }else{echo 0;}?>/100</td>
                                 </tr>
                                 <?php } ?>
                                 </tbody>
@@ -76,17 +85,14 @@
                                     </td>
                                 </tr>
                                 </tfoot>
-                            </table>
-                            <?php var_dump($question) ?>
-                            <br>
-                            <?php var_dump($answer) ?>
+                            </table>>
                             <?php foreach ($modules as $index => $module) {
                              ?>
                             <!-- modal  -->
                             <div class="modal inmodal" id="quizModal<?php echo $index?>" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog">
                                 <div class="modal-content animated bounceInRight">
-                                    <form action="/onlineCourse/my/course/<?php echo $course['id'] ?>/quiz" method="post">
+                                    <form action="/onlineCourse/my/course/<?php echo $id ?>/quiz" method="post">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                             <h4 class="modal-title">Quiz</h4>

@@ -41,9 +41,12 @@ class CoursesController extends Controller{
         
         $course = $courseModel->getCourseById($params['id']);
 
+        
+
         $data = 
         [
             'course' => $course,
+            
         ];
 
 
@@ -69,6 +72,8 @@ class CoursesController extends Controller{
         $transaction = $transactionModel->addTransaction($idCourse, $idUser);
         $userCourse = $userCourseModel->addUserCourse($idCourse, $idUser);
 
+        
+
         header('location:/onlineCourse/course/'.$idCourse);
     }
 
@@ -91,8 +96,37 @@ class CoursesController extends Controller{
         $idModule = $_POST['module'];
         $idUser = $_SESSION['user']['id'];
         $answer = $_POST['answer'];
-        var_dump($answer);
-        // $score = $scoreModel->addScore();
+
+        $score = 100 / count($answer);
+
+        $scores = 0;
+
+        foreach ($answer as $value) {
+            if ($value == 1) {
+                $scores = $scores + $score;
+            }
+        }
+
+        $checkScore = $scoreModel->getScoresByIdModule($idModule, $idUser);
+
+        if ($checkScore) {
+            $score = $scoreModel->editScore($checkScore['id'], $scores);
+        }else{
+            $score = $scoreModel->addScore($idModule, $idUser, $scores);
+        }
+
+        header('Location: /onlineCourse/my/course/'.$params['id']);
+
+    }
+
+    public function submitProject($params){
+        $project = $_POST['project'];
+        $id = $_POST['id'];
+
+        $userCourseModel = new UserCourseModel();
+
+        $result = $userCourseModel->submitProject($id, $project);
+        header('Location: /onlineCourse/my/course/'.$params['id']);
     }
 
     public function myCourseDetail($params){
@@ -104,6 +138,8 @@ class CoursesController extends Controller{
         $moduleModel = new ModuleModel();
         $quizModel = new QuizModel();
         $answerModel = new AnswerModel();
+        $scoreModel = new ScoreModel();
+
 
         
 
@@ -119,6 +155,9 @@ class CoursesController extends Controller{
         $modules = $moduleModel->getAllModuleByIdCourse($idCourse);
         $question = [];
         $answer = [];
+        $score = [];
+
+        
         
         foreach ($modules as $key => $module) {
             $question[$key] = $quizModel->getAllQuizByIdModule($module['id']);
@@ -129,13 +168,23 @@ class CoursesController extends Controller{
                     $answer[$i][$key] = $answerModel->getAllAnswerByIdQuiz($quiz['id']);
             }
         }
+
+        foreach ($modules as $key => $module) {
+            $value  = $scoreModel->getScoresByIdModule($module['id'], $idUser);
+            if($value){
+
+                array_push($score, $value['score']);
+            }
+        }
         
         $data = 
         [
             'course' => $course,
             'modules' => $modules,
             'question' => $question,
-            'answer' => $answer
+            'answer' => $answer,
+            'scores' => $score,
+            'id' => $params['id']
         ];
 
         $this->view('user/detail_my_course', $data);

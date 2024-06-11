@@ -7,8 +7,8 @@ require_once 'app/core/Database.php';
 use Database;
 use PDOException;
 
-class TransactionModel{
-    private $table = 'transaction';
+class CommentModel{
+    private $table = 'comment';
 
     private $db;
     
@@ -17,16 +17,23 @@ class TransactionModel{
         $this->db = new Database();
     }
 
-    public function getAllTransaction() : array {
-        $this->db->query('SELECT transaction.*, user.name, course.title FROM transaction, course, user WHERE transaction.id_course = course.id AND transaction.id_user = user.id ');
+    public function getAllComment() : array {
+        $this->db->query('SELECT * FROM '.$this->table);
         return $this->db->resultSet();
     }
 
-    public function addTransaction($idCourse, $idUser ) : bool {
-        $query = "INSERT INTO transaction (`id_course`, `id_user`) VALUES (:id_course, :id_user)";
+    public function getAllCommentByIdPost($idForum) : array {
+        $this->db->query('SELECT comment.*, user.name, user.picture, user.role FROM comment, user WHERE comment.id_user = user.id AND comment.id_forum = :id_forum');
+        $this->db->bind(':id_forum', $idForum);
+        return $this->db->resultSet();
+    }
+
+    public function addComment($idUser, $idPost, $comment) : bool {
+        $query = "INSERT INTO comment (`id_forum`, `id_user`, `comment`) VALUES (:id_forum, :id_user, :comment)";
         $this->db->query($query);
-        $this->db->bind(":id_course", $idCourse);
+        $this->db->bind(":id_forum", $idPost);
         $this->db->bind(":id_user", $idUser);
+        $this->db->bind(":comment", $comment);
         try {
             $this->db->execute();
         } catch(PDOException $e){

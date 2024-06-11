@@ -42,7 +42,11 @@ class AuthController extends Controller{
         else if($user['role'] == 'admin'){
             header("location: ./admin/dashboard");
             exit();
-        }else
+        }else if($user['role'] == 'mentor'){
+            header("location: /onlineCourse/mentor/dashboard");
+            exit();
+        }
+        else
         {
             header("location: ./login?message=gagal user");
             exit();

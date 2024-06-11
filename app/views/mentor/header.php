@@ -28,15 +28,12 @@
                 <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                     <i class="fa fa-reorder"></i>
                 </button>
-                <a href="/onlineCourse/admin/dashboard" class="navbar-brand">+OC</a>
+                <a href="/onlineCourse/" class="navbar-brand">+OC</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="/onlineCourse/admin/course"> Course</a>
-                    </li>
-                    <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="/onlineCourse/admin/category" > Category</a>
+                        <a aria-expanded="false" role="button" href="/onlineCourse/forum">List Forum</a>
                     </li>
 
                 </ul>
