@@ -115,7 +115,7 @@
                                 <tr>
                                     <td>
                                       <?php echo $key+1?>
-                                      <input type="text" name="id_user_course[]" value="<?php echo $course['id'] ?>">
+                                      <input style="display: none;" type="text" name="id_user_course[]" value="<?php echo $course['id'] ?>">
                                     </td>
                                     <td>
                                       <?php echo $course['title']  ?>
